@@ -4,7 +4,7 @@ library(dplyr)
 library(raster)
 
 # punkty i geometria
-path = 'dane/punkty1.shp'
+path <-  'dane/punkty1.shp'
 punkty1 <- st_read(path)
 geom <- st_geometry(punkty1)
 punkty_proj <- st_crs(punkty1)
@@ -21,7 +21,7 @@ ver1 <- st_intersects(grd, geom, sparse = TRUE) # zwraca, ktory punkt znajduje s
 # macierz z iloscia punktow w kolumnach i z iloscia oczek siatki w wierszach, zwraca wartosc TRUE, gdy dany punkt zawiera sie w danej komorce
 ver2 <- st_intersects(grd, geom, sparse = FALSE)
 
-# dla 6 oczka siatki najpierw sprawdzana jest jego sekwencja(1 2, bo sa 2 punkty w oczku), a nastepnie losuje sie jeden element za pomoca funkcji sample
+# dla zawartosci 6 oczka siatki najpierw sprawdzana jest jego sekwencja(1 2, bo sa 2 punkty w oczku), a nastepnie losuje sie jeden element za pomoca funkcji sample
 ver1[[6]][sample(seq_along(ver1[[6]]), size = 1)]
 
 # punkty1[c(2, 5, 6, 7, 8), ]
@@ -38,3 +38,22 @@ ver1[[6]][sample(seq_along(ver1[[6]]), size = 1)]
 # rasteryzacja <- rasterize(punkty1, grid, field = 1, fun = "count")
 # plot(rasteryzacja)
 # rasteryzacja@data@values
+
+
+
+# zamieniam integer(0) na NA w liscie ver1
+ver1[sapply(ver1, function(ver1) length(ver1)==0)] <- NA
+
+# cos tu nie gra
+for (i in ver1){
+    if (length(ver1[[i]])==0){
+      print(ver1[[i]])
+    }
+    else {
+      x <- ver1[[i]][sample(seq_along(ver1[[i]]), size = 1)]
+      ver1[[i]] <- x
+      #within(ver1, rm(x))
+    }
+  }
+
+# ver1[sapply(ver1, function(ver1) length(ver1)>1)] <- 
