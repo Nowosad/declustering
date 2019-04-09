@@ -39,21 +39,47 @@ ver1[[6]][sample(seq_along(ver1[[6]]), size = 1)]
 # plot(rasteryzacja)
 # rasteryzacja@data@values
 
+# dygresja vol2 -----------------------------------------------------------
+# wersja 1
+# krok 1 - zamina na NA
+# krok 2 - sprawdzenie NA (is.na())
+
+is.na(ver1[[1]])
+
+# wersja 2
+# krok 1 - sprawdzenie is.empty()
+
+length(ver1[[1]]) == 0
+# --------------------------------------------------------------------------
 
 
 # zamieniam integer(0) na NA w liscie ver1
 ver1[sapply(ver1, function(ver1) length(ver1)==0)] <- NA
 
-# cos tu nie gra
-for (i in ver1){
-    if (length(ver1[[i]])==0){
-      print(ver1[[i]])
-    }
-    else {
-      x <- ver1[[i]][sample(seq_along(ver1[[i]]), size = 1)]
-      ver1[[i]] <- x
-      #within(ver1, rm(x))
+# cos tu gra (v1)
+f1 = function(input){
+  for (i in seq_along(input)){
+    if (length(input[[i]]) == 0){
+      print(input[[i]])
+    } else {
+      x <- input[[i]][sample(seq_along(input[[i]]), size = 1)]
+      input[[i]] <- x
     }
   }
+  input
+}
 
-# ver1[sapply(ver1, function(ver1) length(ver1)>1)] <- 
+f1(ver1)
+
+# cos tu gra (v2)
+f2 = function(input){
+  for (i in seq_along(input)){
+    if (length(input[[i]]) > 0){
+      x <- input[[i]][sample(seq_along(input[[i]]), size = 1)]
+      input[[i]] <- x
+    }
+  }
+  input
+}
+
+f2(ver1)
