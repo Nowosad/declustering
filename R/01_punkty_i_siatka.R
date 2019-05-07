@@ -1,17 +1,12 @@
-library(sf)
-library(sp)
-library(dplyr)
-library(raster)
-
 # punkty i geometria
 path <-  'dane/punkty5.shp'
-punkty1 <- st_read(path)
-geom <- st_geometry(punkty1)
-punkty_proj <- st_crs(punkty1)
+punkty <- st_read(path)
+geom <- st_geometry(punkty)
+punkty_proj <- st_crs(punkty)
 plot(geom)
 
 # siatka
-grd <- st_make_grid(punkty1)
+grd <- st_make_grid(punkty)
 plot(grd)
 plot(geom, add = TRUE)
 
@@ -26,14 +21,14 @@ ver1[[6]][sample(seq_along(ver1[[6]]), size = 1)]
 
 
 # siatka zbudowana w obrebie punktow do wizualizacji
-# grid <- raster(extent(punkty1))
-# crs(grid) = crs(punkty1)
-# st_crs(punkty1) == crs(grid) #dlaczego FALSE skoro bralam pod uwage punkty1
+# grid <- raster(extent(punkty))
+# crs(grid) = crs(punkty)
+# st_crs(punkty) == crs(grid) #dlaczego FALSE skoro bralam pod uwage punkty
 # grid[] <- 0 #raster musi miec jakas wartosc
 # plot(grid)
 
 # wizualizacja ilosci punktow
-# rasteryzacja <- rasterize(punkty1, grid, field = 1, fun = "count")
+# rasteryzacja <- rasterize(punkty, grid, field = 1, fun = "count")
 # plot(rasteryzacja)
 # rasteryzacja@data@values
 

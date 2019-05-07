@@ -1,10 +1,10 @@
-# path - sciezka do pliku
+# obj - objekt przestrzenny
 # cellsize - rozdzielczosc 
 # numpoints - liczba punktow wybranych z oczka siatki
 
 
-gridRandom <- function(path, cellsize, numpoints){
-  points <- st_read(path)
+gridRandom <- function(obj, cellsize, numpoints){
+  points <- st_read(obj)
   geom <- st_geometry(points)
   proj <- st_crs(points)
   grid <- st_make_grid(points)
@@ -23,3 +23,4 @@ gridRandom <- function(path, cellsize, numpoints){
   }
   return(intersection)
 }
+
