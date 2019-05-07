@@ -1,10 +1,13 @@
-# obj - objekt przestrzenny
+# points - objekt przestrzenny
 # cellsize - rozdzielczosc 
 # numpoints - liczba punktow wybranych z oczka siatki
 
+points = geom
+cellsize = 0.01
+numpoints = 1
 
-gridRandom <- function(obj, cellsize, numpoints){
-  points <- st_read(obj)
+gridRandom <- function(points, cellsize, numpoints){
+  # points <- st_read(obj)
   geom <- st_geometry(points)
   proj <- st_crs(points)
   grid <- st_make_grid(points)
